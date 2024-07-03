@@ -4,7 +4,7 @@ class TokenConfig {
   tokenName: string;
 
   constructor() {
-    this.tokenName = 'authToken';
+    this.tokenName = 'auth_token';
   }
 
   setToken(token: string) {
