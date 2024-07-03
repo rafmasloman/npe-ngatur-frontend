@@ -17,6 +17,7 @@ import { useState } from 'react';
 import BaseTab from '../../../../features/projects/project_detail/Tab/BaseTab';
 import OverviewPanel from '../../../../features/projects/project_detail/Tab/Overview/components/OverviewPanel';
 import { useGetMilestonesByProject } from '../../../../services/milestone/hooks/useQueryMilestoneProject';
+import ModalForm from '../../../../features/projects/project_detail/components/ModalForm';
 
 const ProjectDetail = () => {
   const params = useParams<{ project_id: string }>();
@@ -36,6 +37,12 @@ const ProjectDetail = () => {
   const milestonesProject = useGetMilestonesByProject(params.project_id);
 
   console.log('milestones : ', milestonesProject.data);
+
+  if (projectDetail.isLoading) {
+    return (
+      <Text className="text-center h-screen">Loading Detail Project .... </Text>
+    );
+  }
 
   return (
     <Stack className="container mx-auto" gap={0}>
@@ -120,7 +127,12 @@ const ProjectDetail = () => {
           </Group>
         </Stack>
 
-        <Stack>
+        <Stack gap={30} align="start">
+          <ModalForm btnText="Invite Member" title="Invite Member to Project">
+            {/* <InviteMemberForm project={project} /> */}
+            <Text>Tess</Text>
+          </ModalForm>
+
           <Group align="end" justify="right">
             <Stack gap={10}>
               <Text className="text-sm text-gray-400 font-medium">
