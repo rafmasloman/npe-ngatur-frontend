@@ -38,10 +38,14 @@ const TabList = ({ activeTab }: { activeTab: string | null }) => {
             value={item.value}
             pb={rem(20)}
             pl={0}
+            className=""
             classNames={{
               tabLabel: `${
                 activeTab === item.value ? 'text-primary' : 'text-cust-black'
-              } `,
+              }`,
+              tab: `hover:bg-transparent border-transparent hover:border-b-primary border-4 border-solid rounded-none ${
+                activeTab === item.value ? 'border-b-primary' : ''
+              }`,
             }}
           >
             {item.text}
