@@ -3,6 +3,7 @@ import './globals.css';
 import React from 'react';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import { theme } from '../../theme';
+import ReactQueryProvider from '../libs/providers/react-query-provider';
 
 export const metadata = {
   title: 'Mantine Next.js template',
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <ReactQueryProvider>
+          <MantineProvider theme={theme}>{children}</MantineProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
