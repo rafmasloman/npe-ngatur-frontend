@@ -1,7 +1,10 @@
 import { API_ROUTES } from '../../constant/api_routes';
 import { http } from '../../libs/http';
 import { ApiBaseResponse } from '../../utils/api/base_response';
-import { IProjectResponseApi } from './ProjectsInterface';
+import {
+  IProjectDetailResponseApi,
+  IProjectResponseApi,
+} from './ProjectsInterface';
 
 class ProjectServiceApi {
   private routesName = `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/${API_ROUTES.PROJECT}`;
@@ -18,11 +21,14 @@ class ProjectServiceApi {
     }
   }
 
-  async getDetailProject(projectId: string) {
+  async getDetailProject(
+    projectId: string,
+  ): Promise<ApiBaseResponse<IProjectDetailResponseApi>> {
     try {
       const response = await http.get(`${this.routesName}/${projectId}`);
 
-      const data = await response.data;
+      const data: ApiBaseResponse<IProjectDetailResponseApi> =
+        await response.data;
 
       return data;
     } catch (error) {
