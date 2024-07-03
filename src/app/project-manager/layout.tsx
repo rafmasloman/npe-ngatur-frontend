@@ -19,6 +19,7 @@ import { FaFolderOpen, FaPerson } from 'react-icons/fa6';
 import NavbarItems from '../../components/Navbar/NavbarItems';
 import UserNavigationMenu from '../../components/Menu/UserNavigationMenu';
 import HeaderLayout from '../../layouts/HeaderLayout';
+import SEO from '../../components/SEO/BaseSEO';
 
 interface IProjectManagerLayoutPropsType {
   children: ReactNode;
@@ -40,7 +41,7 @@ const ProjectManagerLayout = ({ children }: IProjectManagerLayoutPropsType) => {
       <AppShell.Main>
         <Container
           ff={'poppins'}
-          className="bg-neutral-50 h-screen rounded-tr-[50px] rounded-tl-[50px] p-10"
+          className="bg-neutral-50 rounded-tr-[36px] rounded-tl-[36px] py-10 px-2 md:p-10"
           fluid
         >
           {children}
