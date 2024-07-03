@@ -1,11 +1,15 @@
 import { Group, Image, Menu, Stack, Text } from '@mantine/core';
 import NavbarItems from '../components/Navbar/NavbarItems';
 import { GoHomeFill } from 'react-icons/go';
-import { BiSolidDashboard } from 'react-icons/bi';
+import { BiExit, BiSolidDashboard, BiUserCircle } from 'react-icons/bi';
 import { FaFolderOpen, FaPerson } from 'react-icons/fa6';
 import { IoWallet } from 'react-icons/io5';
 import NPELogoWhite from '../assets/images/npe_ngatur.png';
 import UserNavigationMenu from '../components/Menu/UserNavigationMenu';
+import {
+  PROJECT_DETAIL_PM_PAGE,
+  PROJECT_PM_PAGE,
+} from '../constant/page_routes';
 
 const HeaderLayout = () => {
   return (
@@ -41,7 +45,7 @@ const HeaderLayout = () => {
           {
             text: 'Projects',
             icon: <FaFolderOpen className="text-lg" />,
-            href: '/project',
+            href: PROJECT_PM_PAGE,
           },
           {
             text: 'Payroll',
@@ -51,16 +55,33 @@ const HeaderLayout = () => {
         ]}
       />
 
-      <Menu withArrow width={200}>
+      <Menu
+        withArrow
+        width={200}
+        classNames={{
+          label: `text-base font-normal`,
+        }}
+      >
         <Menu.Target>
           <UserNavigationMenu name="Muh Ikhsan" role="Project Manager" />
         </Menu.Target>
 
-        <Menu.Dropdown>
-          <Menu.Label>Account</Menu.Label>
+        <Menu.Dropdown ff={'poppins'}>
+          <Menu.Label>Menu</Menu.Label>
           <Menu.Item>
-            <FaPerson />
-            <Text>Profile</Text>
+            <Group>
+              <BiUserCircle className="text-xl" />
+              <Text>Profile</Text>
+            </Group>
+          </Menu.Item>
+
+          <Menu.Divider />
+
+          <Menu.Item>
+            <Group>
+              <BiExit className="text-xl" />
+              <Text>Logout</Text>
+            </Group>
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
