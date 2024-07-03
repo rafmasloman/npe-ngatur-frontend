@@ -1,0 +1,18 @@
+export const COLORS = {
+  primary: '#005BD8',
+  secondary: '#153B6F',
+  third: '#F79F1A',
+  custom_black: '#192536',
+  yellow: '#FFD600',
+  success: '#3ABC6B',
+  danger: '#FF2C56',
+  warning: '#FF842B',
+  gray: '#B7B7B7',
+  deepgray: '#E7E7E7',
+  lightblue: '#CEECFD',
+  deepblue: '#2E87BA',
+  on_progress: '#0891B2',
+  todo: '#F79F1A',
+  completed: '#16a34a',
+  maroon: '#DF135C',
+};
