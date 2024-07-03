@@ -1,12 +1,18 @@
 import { Button, ButtonProps } from '@mantine/core';
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface IBaseButtonPropsType extends ButtonProps {
   variant: 'primary' | 'secondary';
   children: ReactNode;
+  onClick?: () => void;
 }
 
-const BaseButton = ({ variant, children, ...props }: IBaseButtonPropsType) => {
+const BaseButton = ({
+  variant,
+  onClick,
+  children,
+  ...props
+}: IBaseButtonPropsType) => {
   const btnColor =
     variant === 'secondary'
       ? 'border-primary text-primary'
@@ -15,9 +21,11 @@ const BaseButton = ({ variant, children, ...props }: IBaseButtonPropsType) => {
   return (
     <Button
       variant={variant === 'secondary' ? 'outline' : 'filled'}
+      onClick={onClick}
       classNames={{
-        root: `${btnColor} h-[48px]`,
+        root: `${btnColor} h-[45px]`,
       }}
+      radius={'md'}
       {...props}
     >
       {children}
