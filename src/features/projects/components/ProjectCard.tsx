@@ -16,7 +16,7 @@ import { filterCompletedTask } from '../helpers/ProjectCardHelpers';
 
 const ProjectCard = (props: IProjectResponseApi) => {
   return (
-    <Link href={`/project/detail`}>
+    <Link href={`/project-manager/project/${props.id}`}>
       <Card
         className={`w-full z-20  h-full bg-white  mb-10 lg:md-0 border-2 border-solid border-transparent hover:border-2 hover:border-solid  `}
         // w={300}
