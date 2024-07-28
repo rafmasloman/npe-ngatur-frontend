@@ -20,6 +20,7 @@ export interface IProjectDetailResponseApi {
     description: string;
     startedDate: string;
     client: {
+      id: string;
       address: string;
       name: string;
       phoneNumber: string;
