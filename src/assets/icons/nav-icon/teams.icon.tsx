@@ -1,9 +1,11 @@
-import { IconInterfaceProps } from '@/src/interfaces/icon.interface';
 import { SVGProps } from 'react';
+import { IconInterfaceProps } from '../Icon.interface';
 
 export const ICTeams = ({ width, height, ...props }: IconInterfaceProps) => {
   return (
     <svg
+      width={width}
+      height={height}
       viewBox="0 0 25 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

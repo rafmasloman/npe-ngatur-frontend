@@ -1,4 +1,4 @@
-import { IconInterfaceProps } from '@/src/interfaces/icon.interface';
+import { IconInterfaceProps } from '../Icon.interface';
 
 export const ICClient = ({ width, height }: IconInterfaceProps) => {
   return (

@@ -1,8 +1,14 @@
-import { IconInterfaceProps } from '@/src/interfaces/icon.interface';
+import { IconInterfaceProps } from '../Icon.interface';
 
 export const ICPayroll = ({ width, height, ...props }: IconInterfaceProps) => {
   return (
-    <svg viewBox="0 0 39 37" fill="none" {...props}>
+    <svg
+      viewBox="0 0 39 37"
+      fill="none"
+      width={width}
+      height={height}
+      {...props}
+    >
       <path
         d="M11.6667 12.8334H17.6667C18.219 12.8334 18.6667 13.2811 18.6667 13.8334V17.6667C18.6667 18.219 18.219 18.6667 17.6667 18.6667H11.6667V12.8334Z"
         fill="#FFD600"

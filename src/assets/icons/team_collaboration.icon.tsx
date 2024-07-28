@@ -1,5 +1,3 @@
-import { IconInterfaceProps } from '@/src/interfaces/icon.interface';
-
 export const ICTeamColaboration = () => {
   return (
     <svg
