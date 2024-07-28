@@ -34,13 +34,18 @@ export interface IProjectDetailResponseApi {
     member: any[];
     task: any[];
   };
-  todos: IProjectTodoWorkspaceData;
+  todos?: IProjectTodoWorkspaceData;
 }
 
 export interface IProjectTodoWorkspaceData {
-  completed: ITodosTaskResponse[];
-  onprogress: ITodosTaskResponse[];
   todo: ITodosTaskResponse[];
+  onprogress: ITodosTaskResponse[];
+  completed: ITodosTaskResponse[];
+}
+
+export interface IInviteMemberToProjectParams {
+  projectId: string;
+  member: string;
 }
 
 export interface ITodosTaskResponse {

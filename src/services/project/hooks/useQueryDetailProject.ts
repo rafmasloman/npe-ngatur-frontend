@@ -22,7 +22,7 @@ const useQueryDetailProject = ({
     queryFn: () => projectService.getDetailProject(projectId),
 
     select(data) {
-      return data;
+      return data.data;
     },
   });
 
@@ -36,7 +36,7 @@ const useQueryDetailProject = ({
     if (query.isSuccess && query.data) {
       onSuccesCb(query.data);
     }
-  }, [query.isSuccess, query.data, onSuccesCb]);
+  }, [onSuccesCb, query.data, query.isSuccess]);
 
   return query;
 };
