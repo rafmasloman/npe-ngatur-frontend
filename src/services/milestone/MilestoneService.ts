@@ -1,15 +1,16 @@
 import { API_ROUTES } from '../../constant/api_routes';
 import { http } from '../../libs/http';
-
-interface IMilestonePayload {
-  milestoneName: string;
-  projectId: string;
-  startedDate: string;
-  endDate: string;
-}
+import { IApiMilestonePayloadMutation } from './MilestoneInterface';
 
 class MilestonService {
   private routesName = `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/${API_ROUTES.MILESTONE}`;
+
+  constructor() {
+    this.createMilestone = this.createMilestone.bind(this);
+    this.updateMilestone = this.updateMilestone.bind(this);
+    this.updateStatusMilestone = this.updateStatusMilestone.bind(this);
+    this.deleteMilestone = this.deleteMilestone.bind(this);
+  }
 
   async getAllMilestone() {
     try {
@@ -37,30 +38,21 @@ class MilestonService {
     }
   }
 
-  //    async getMilestoneDeadline(milestoneId?: string) {
-  //     try {
-  //       const response = await fetch(
-  //         `${this.routesName}/deadline/${milestoneId}`,
-  //         {
-  //           method: 'GET',
-  //           headers: {
-  //             'Content-type': 'application/json',
-  //             Authorization: `Bearer ${
-  //               __getBrowserAuthCookie(TOKEN_NAME) || __getSSRAuthCookie()
-  //             }`,
-  //           },
-  //         },
-  //       );
+  async getMilestoneDeadline(milestoneId?: string) {
+    try {
+      const response = await http.get(
+        `${this.routesName}/deadline/${milestoneId}`,
+      );
 
-  //       const data = await response.json();
+      const data = await response.data;
 
-  //       return data;
-  //     } catch (error) {
-  //       console.log(error);
+      return data;
+    } catch (error) {
+      console.log(error);
 
-  //       throw error;
-  //     }
-  //   }
+      throw error;
+    }
+  }
 
   async getMilestonesByProject(projectId: string) {
     try {
@@ -78,7 +70,7 @@ class MilestonService {
     }
   }
 
-  async createMilestone(payload: IMilestonePayload) {
+  async createMilestone(payload: IApiMilestonePayloadMutation) {
     try {
       const response = await http.post(this.routesName, payload);
 
@@ -92,7 +84,10 @@ class MilestonService {
     }
   }
 
-  async updateMilestone(milestoneId: string, payload: IMilestonePayload) {
+  async updateMilestone(
+    milestoneId: string,
+    payload: IApiMilestonePayloadMutation,
+  ) {
     try {
       const response = await http.put(
         `${this.routesName}/${milestoneId}`,
