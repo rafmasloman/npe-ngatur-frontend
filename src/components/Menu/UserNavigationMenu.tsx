@@ -6,20 +6,33 @@ interface IUserNavigationButtonPropsType
   extends React.ComponentPropsWithoutRef<'button'> {
   name: string;
   role: string;
+  variant?: 'primary' | 'secondary';
 }
 
 const UserNavigationMenu = forwardRef<
   HTMLButtonElement,
   IUserNavigationButtonPropsType
->(({ name, role, ...props }, ref) => {
+>(({ name, role, variant, ...props }, ref) => {
   return (
-    <UnstyledButton ref={ref} {...props}>
+    <UnstyledButton ref={ref} {...props} visibleFrom="md">
       <Group>
         <Avatar radius={'xl'} />
 
         <Stack gap={0} ff={'poppins'}>
-          <Text className="text-white text-base">{name}</Text>
-          <Text className="text-neutral-400 text-sm">{role}</Text>
+          <Text
+            className={`${
+              variant === 'primary' ? 'text-white' : 'text-custom_black'
+            } text-base`}
+          >
+            {name}
+          </Text>
+          <Text
+            className={`${
+              variant === 'primary' ? 'text-white' : 'text-neutral-400 '
+            } text-sm`}
+          >
+            {role}
+          </Text>
         </Stack>
       </Group>
     </UnstyledButton>
