@@ -7,18 +7,30 @@ interface INavbarItemsPropsType {
     icon?: ReactNode;
     text: string;
     href: string;
+    pathname?: string;
   }[];
+  pathname?: string;
 }
 
-const NavbarItems = ({ items }: INavbarItemsPropsType) => {
+const NavbarItems = ({ items, pathname }: INavbarItemsPropsType) => {
+  console.log('nav item : ', pathname);
+
   return (
     <Group gap={50}>
       {items.map((item, id) => {
         return (
-          <Link key={id} href={item.href} className="text-white">
-            <Group gap={5} align="center">
+          <Link key={id} href={item.href} className={` text-white `}>
+            <Group gap={10} align="center">
               {item.icon}
-              <Text className="font-light">{item.text}</Text>
+              <Text
+                className={` font-light ${
+                  pathname === item.pathname?.toLowerCase()
+                    ? 'text-amber-400 font-medium'
+                    : ''
+                }`}
+              >
+                {item.text}
+              </Text>
             </Group>
           </Link>
         );
