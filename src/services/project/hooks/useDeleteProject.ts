@@ -13,7 +13,7 @@ const useDeleteProject = () => {
     mutationKey: [DELETE_PROJECT],
     mutationFn: projectService.deleteProject,
     onSuccess(data, variables, context) {
-      if (!data.data) {
+      if (!data) {
         NotificationAdmin({
           title: 'Project gagal terhapus',
           message: 'Gagal menghapus data Project',
