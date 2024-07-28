@@ -1,3 +1,5 @@
+'use client';
+
 import { Group, Image, Menu, Stack, Text } from '@mantine/core';
 import NavbarItems from '../components/Navbar/NavbarItems';
 import { GoHomeFill } from 'react-icons/go';
@@ -7,11 +9,30 @@ import { IoWallet } from 'react-icons/io5';
 import NPELogoWhite from '../assets/images/npe_ngatur.png';
 import UserNavigationMenu from '../components/Menu/UserNavigationMenu';
 import {
+  LOGIN_PAGE,
+  PAYROLL_PM_PAGE,
+  PROFILE_PM_PAGE,
   PROJECT_DETAIL_PM_PAGE,
   PROJECT_PM_PAGE,
 } from '../constant/page_routes';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { usePathname, useRouter } from 'next/navigation';
+import TokenUtils from '../utils/token';
 
 const HeaderLayout = () => {
+  const userContext = useContext(AuthContext);
+  const path = usePathname();
+  const router = useRouter();
+
+  const currentPath = path.split('/');
+
+  const handleLogout = () => {
+    const token = TokenUtils.removeToken();
+
+    router.push(LOGIN_PAGE);
+  };
+
   return (
     <Group
       className="h-full px-10 w-full container mx-auto"
@@ -31,26 +52,55 @@ const HeaderLayout = () => {
       </Group>
 
       <NavbarItems
+        pathname={currentPath[2]}
         items={[
           {
             text: 'Homepage',
             icon: <GoHomeFill className="text-lg" />,
             href: '/',
+            pathname: 'homepage',
           },
           {
             text: 'Dashboard',
-            icon: <BiSolidDashboard className="text-lg" />,
-            href: '/dashboard',
+            icon: (
+              <BiSolidDashboard
+                className={`text-xl ${
+                  currentPath[2]?.toLowerCase() === undefined
+                    ? 'text-amber-400 text-xl'
+                    : ''
+                }`}
+              />
+            ),
+            href: '/project-manager',
+            pathname: undefined,
           },
           {
-            text: 'Projects',
-            icon: <FaFolderOpen className="text-lg" />,
+            text: 'Project',
+            icon: (
+              <FaFolderOpen
+                className={`text-xl ${
+                  currentPath[2]?.toLowerCase() === 'project'
+                    ? 'text-amber-400'
+                    : ''
+                }`}
+              />
+            ),
             href: PROJECT_PM_PAGE,
+            pathname: 'project',
           },
           {
             text: 'Payroll',
-            icon: <IoWallet className="text-lg" />,
-            href: '/payroll',
+            icon: (
+              <IoWallet
+                className={`text-xl ${
+                  currentPath[2]?.toLowerCase() === 'payroll'
+                    ? 'text-amber-400'
+                    : ''
+                }`}
+              />
+            ),
+            href: PAYROLL_PM_PAGE,
+            pathname: 'payroll',
           },
         ]}
       />
@@ -63,13 +113,17 @@ const HeaderLayout = () => {
         }}
       >
         <Menu.Target>
-          <UserNavigationMenu name="Muh Ikhsan" role="Project Manager" />
+          <UserNavigationMenu
+            variant="primary"
+            name={`${userContext.user?.firstname} ${userContext.user?.lastname}`}
+            role={`${userContext.user?.role}`}
+          />
         </Menu.Target>
 
         <Menu.Dropdown ff={'poppins'}>
           <Menu.Label>Menu</Menu.Label>
           <Menu.Item>
-            <Group>
+            <Group onClick={() => router.push(PROFILE_PM_PAGE)}>
               <BiUserCircle className="text-xl" />
               <Text>Profile</Text>
             </Group>
@@ -78,7 +132,7 @@ const HeaderLayout = () => {
           <Menu.Divider />
 
           <Menu.Item>
-            <Group>
+            <Group onClick={handleLogout}>
               <BiExit className="text-xl" />
               <Text>Logout</Text>
             </Group>
