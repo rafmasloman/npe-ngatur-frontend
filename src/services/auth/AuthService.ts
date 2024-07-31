@@ -31,6 +31,23 @@ class AuthServiceApi {
       throw error;
     }
   }
+
+  async changeUserPassword(params: { userId: string; newPassword: string }) {
+    try {
+      const response = await http.put(
+        `${API_ROUTES.AUTH}/${params.userId}/change-user-password`,
+        {
+          newPassword: params.newPassword,
+        },
+      );
+
+      const data = await response.data;
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const authService = new AuthServiceApi();
