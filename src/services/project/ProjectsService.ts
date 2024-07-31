@@ -66,6 +66,20 @@ class ProjectServiceApi {
     }
   }
 
+  async getProjectMemberPayroll(projectId: string) {
+    try {
+      const response = await http.get(
+        `${API_ROUTES.PROJECT}/${projectId}/member/payroll`,
+      );
+
+      const data = await response.data;
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async createProject(payload: FormData) {
     try {
       const response = await http.post(API_ROUTES.PROJECT, payload);

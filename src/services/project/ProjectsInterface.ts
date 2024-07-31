@@ -32,6 +32,7 @@ export interface IProjectDetailResponseApi {
     platform: string;
     currentPayroll: number;
     progress: number;
+    projectManager: string;
     member: any[];
     task: any[];
   };
