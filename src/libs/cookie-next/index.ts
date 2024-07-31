@@ -7,16 +7,6 @@ type SetCookieNextDataType = {
 };
 
 class CookieNextLib {
-  //   name: string;
-  //   value: string;
-  //   option?: { expires: number };
-
-  //   constructor(name: string, value: string, option?: { expires: number }) {
-  //     this.name = name;
-  //     this.value = value;
-  //     this.option = option;
-  //   }
-
   setCookie(params: SetCookieNextDataType) {
     return setCookie(params.name, params.value);
   }
