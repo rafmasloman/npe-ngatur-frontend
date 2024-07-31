@@ -1,18 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  CLIENT_ADMIN_PAGE,
-  HOMEPAGE,
-  MEMBER_ADMIN_PAGE,
-  USER_ADMIN_PAGE,
-} from '../../../constant/page_routes';
-import {
-  CREATE_CLIENT,
-  CREATE_MEMBER,
-  GET_ALL_CLIENTS,
-  GET_ALL_MEMBERS,
-  GET_USER_CREDENTIALS,
-  LOGIN_AUTH,
-} from '../../../constant/query_key';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { HOMEPAGE } from '../../../constant/page_routes';
+import { GET_USER_CREDENTIALS, LOGIN_AUTH } from '../../../constant/query_key';
 import { useRouter } from 'next/navigation';
 import NotificationAdmin from '../../../features/common/components/NotificationAdmin';
 import authService from '../AuthService';
