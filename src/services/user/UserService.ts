@@ -78,7 +78,7 @@ class UserServiceApi {
 
   async getMemberProjectManagerRole() {
     try {
-      const response = await http.get(`${API_ROUTES.USER}/project-manager`);
+      const response = await http.get(`${API_ROUTES.MEMBER}/project-manager`);
 
       const data = await response.data;
 
