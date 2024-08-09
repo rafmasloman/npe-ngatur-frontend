@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { HOMEPAGE } from '../../../constant/page_routes';
-import { GET_USER_CREDENTIALS, LOGIN_AUTH } from '../../../constant/query_key';
+import {
+  GET_DETAIL_USER,
+  GET_USER_CREDENTIALS,
+  LOGIN_AUTH,
+} from '../../../constant/query_key';
 import { useRouter } from 'next/navigation';
 import NotificationAdmin from '../../../features/common/components/NotificationAdmin';
 import authService from '../AuthService';
@@ -28,6 +32,7 @@ const useLoginMutation = () => {
         });
 
         queryClient.invalidateQueries({ queryKey: [GET_USER_CREDENTIALS] });
+        queryClient.invalidateQueries({ queryKey: [GET_DETAIL_USER] });
 
         TokenUtils.setToken(data.data.token);
 
