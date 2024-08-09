@@ -84,14 +84,14 @@ class MilestonService {
     }
   }
 
-  async updateMilestone(
-    milestoneId: string,
-    payload: IApiMilestonePayloadMutation,
-  ) {
+  async updateMilestone(params: {
+    milestoneId: string;
+    payload: IApiMilestonePayloadMutation;
+  }) {
     try {
       const response = await http.put(
-        `${this.routesName}/${milestoneId}`,
-        payload,
+        `${this.routesName}/${params.milestoneId}`,
+        params.payload,
       );
 
       const data = await response.data;

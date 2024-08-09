@@ -8,25 +8,24 @@ import { useParams, useRouter } from 'next/navigation';
 import NotificationAdmin from '../../../features/common/components/NotificationAdmin';
 import milestoneServiceApi from '../MilestoneService';
 
-const useCreateMilestone = () => {
+const useUpdateMilestone = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const params = useParams<{project_id: string}>()
+  const params = useParams<{ project_id: string }>();
 
   const query = useMutation({
-    mutationKey: [CREATE_MILESTONES_ON_PROJECT],
-    mutationFn: milestoneServiceApi.createMilestone,
+    mutationFn: milestoneServiceApi.updateMilestone,
     onSuccess(data, variables, context) {
       if (!data.data) {
         NotificationAdmin({
-          title: 'Milestone gagal ditambah',
-          message: 'Gagal menambah data Milestone',
+          title: 'Milestone gagal diubah',
+          message: 'Gagal mengubah data Milestone',
           status: 'FAILED',
         });
       } else {
         NotificationAdmin({
-          title: 'Milestone ditambah',
-          message: 'Berhasil menambah data Milestone',
+          title: 'Milestone diubah',
+          message: 'Berhasil mengubah data Milestone',
           status: 'SUCCESS',
         });
         queryClient.invalidateQueries({ queryKey: [GET_MILESTONE_PROJECTS] });
@@ -36,8 +35,8 @@ const useCreateMilestone = () => {
     },
     onError(error, variables, context) {
       NotificationAdmin({
-        title: 'Milestone gagal ditambah',
-        message: 'Gagal menambah data Milestone',
+        title: 'Milestone gagal diubah',
+        message: 'Gagal mengubah data Milestone',
         status: 'FAILED',
       });
     },
@@ -46,4 +45,4 @@ const useCreateMilestone = () => {
   return query;
 };
 
-export default useCreateMilestone;
+export default useUpdateMilestone;
