@@ -53,7 +53,7 @@ class MemberServiceApi {
   }
 
   async getMemberDetail(
-    memberId: string,
+    memberId?: string,
   ): Promise<ApiBaseResponse<IApiMemberDetailQueryResponse>> {
     try {
       const response = await http.get(`${API_ROUTES.MEMBER}/${memberId}`);
