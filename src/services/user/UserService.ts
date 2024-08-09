@@ -62,7 +62,7 @@ class UserServiceApi {
   }
 
   async getUserQueryById(
-    userId: string,
+    userId?: string,
   ): Promise<ApiBaseResponse<IApiGetUserQueryResponse>> {
     try {
       const response = await http.get(`${API_ROUTES.USER}/${userId}`);
