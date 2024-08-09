@@ -19,7 +19,7 @@ class TaskServiceApi {
     }
   }
 
-  async getTaskDetail(taskId: number) {
+  async getTaskDetail(taskId?: string) {
     try {
       const response = await http.get(`${API_ROUTES.TASK}/${taskId}`);
 
