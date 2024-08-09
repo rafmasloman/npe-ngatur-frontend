@@ -5,22 +5,17 @@ import {
   GET_DETAIL_TASK,
   GET_MILESTONE_PROJECTS,
   UPDATE_STATUS_TASK,
+  UPDATE_TASK,
 } from '../../../constant/query_key';
 import taskService from '../TaskService';
 
-const useUpdateTaskStatus = () => {
+const useUpdateTask = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationKey: [UPDATE_STATUS_TASK],
-    mutationFn: taskService.updateStatusTask,
+    mutationKey: [UPDATE_TASK],
+    mutationFn: taskService.updateTask,
     onSuccess(data, variables, context) {
-      // if (!data.data) {
-      //   console.log('error : ', data);
-      // } else {
-      //   console.log('data : ', data);
-
-      // }
       queryClient.invalidateQueries({ queryKey: [GET_DETAIL_PROJECT] });
       queryClient.invalidateQueries({ queryKey: [GET_MILESTONE_PROJECTS] });
       queryClient.invalidateQueries({ queryKey: [GET_DETAIL_TASK] });
@@ -31,4 +26,4 @@ const useUpdateTaskStatus = () => {
   return mutation;
 };
 
-export default useUpdateTaskStatus;
+export default useUpdateTask;
