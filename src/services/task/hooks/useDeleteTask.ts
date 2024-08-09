@@ -1,5 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { DELETE_TASK, GET_DETAIL_PROJECT } from '../../../constant/query_key';
+import {
+  DELETE_TASK,
+  GET_DETAIL_PROJECT,
+  GET_MILESTONE_PROJECTS,
+} from '../../../constant/query_key';
 import NotificationAdmin from '../../../features/common/components/NotificationAdmin';
 import taskService from '../TaskService';
 
@@ -23,6 +27,7 @@ const useDeleteTask = () => {
           status: 'SUCCESS',
         });
         queryClient.invalidateQueries({ queryKey: [GET_DETAIL_PROJECT] });
+        queryClient.invalidateQueries({ queryKey: [GET_MILESTONE_PROJECTS] });
 
         // router.push(PROJECTS_ADMIN_PAGE);
       }
