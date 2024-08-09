@@ -9,6 +9,7 @@ const useQueryPayrollDetail = (payrollId?: string) => {
     select(data) {
       return data.data;
     },
+    enabled: !!payrollId,
   });
 
   return query;
