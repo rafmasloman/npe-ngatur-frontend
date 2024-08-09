@@ -13,7 +13,7 @@ const WorkspaceLayout = ({ children }: IWorkspaceLayoutPropsType) => {
     <AppShell
       header={{ height: 100 }}
       classNames={{
-        main: `bg-custom_black`,
+        main: `bg-custom_black h-screen`,
         header: `bg-custom_black border-0`,
       }}
     >
@@ -24,7 +24,7 @@ const WorkspaceLayout = ({ children }: IWorkspaceLayoutPropsType) => {
       <AppShell.Main>
         <Container
           ff={'poppins'}
-          className="bg-neutral-50 min-h-screen rounded-tr-[36px] rounded-tl-[36px] py-10 px-2 md:p-10"
+          className="bg-slate-50 min-h-screen rounded-tr-[36px] rounded-tl-[36px] px-3.5 py-5 md:p-10"
           fluid
         >
           {children}

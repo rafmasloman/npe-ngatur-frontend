@@ -11,17 +11,29 @@ import UserNavigationMenu from '../components/Menu/UserNavigationMenu';
 import {
   LOGIN_PAGE,
   PAYROLL_PM_PAGE,
+  PAYROLL_STAFF_PAGE,
   PROFILE_PM_PAGE,
+  PROFILE_STAFF_PAGE,
   PROJECT_DETAIL_PM_PAGE,
   PROJECT_PM_PAGE,
+  PROJECT_STAFF_PAGE,
 } from '../constant/page_routes';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { usePathname, useRouter } from 'next/navigation';
 import TokenUtils from '../utils/token';
+import useQueryMemberDetail from '../services/member/hooks/useQueryMemberDetail';
+import useQueryUserDetail from '../services/user/hooks/useQueryUserDetail';
+import useQueryUserProfile from '../services/profile/hooks/useQueryUserProfile';
 
 const HeaderLayout = () => {
   const userContext = useContext(AuthContext);
+  const member = useQueryUserProfile({
+    userId: userContext.user?.id,
+    onSuccesCb(data) {},
+    onErrorCb(error) {},
+  });
+
   const path = usePathname();
   const router = useRouter();
 
@@ -71,7 +83,10 @@ const HeaderLayout = () => {
                 }`}
               />
             ),
-            href: '/project-manager',
+            href:
+              userContext.user?.role === 'STAFF'
+                ? '/staff'
+                : '/project-manager',
             pathname: undefined,
           },
           {
@@ -85,7 +100,10 @@ const HeaderLayout = () => {
                 }`}
               />
             ),
-            href: PROJECT_PM_PAGE,
+            href:
+              userContext.user?.role === 'STAFF'
+                ? PROJECT_STAFF_PAGE
+                : PROJECT_PM_PAGE,
             pathname: 'project',
           },
           {
@@ -99,7 +117,10 @@ const HeaderLayout = () => {
                 }`}
               />
             ),
-            href: PAYROLL_PM_PAGE,
+            href:
+              userContext.user?.role === 'STAFF'
+                ? PAYROLL_STAFF_PAGE
+                : PAYROLL_PM_PAGE,
             pathname: 'payroll',
           },
         ]}
@@ -114,6 +135,7 @@ const HeaderLayout = () => {
       >
         <Menu.Target>
           <UserNavigationMenu
+            profilePicture={`${member.data?.profilePicture}`}
             variant="primary"
             name={`${userContext.user?.firstname} ${userContext.user?.lastname}`}
             role={`${userContext.user?.role}`}
@@ -123,7 +145,15 @@ const HeaderLayout = () => {
         <Menu.Dropdown ff={'poppins'}>
           <Menu.Label>Menu</Menu.Label>
           <Menu.Item>
-            <Group onClick={() => router.push(PROFILE_PM_PAGE)}>
+            <Group
+              onClick={() =>
+                router.push(
+                  userContext.user?.role === 'STAFF'
+                    ? PROFILE_STAFF_PAGE
+                    : PROFILE_PM_PAGE,
+                )
+              }
+            >
               <BiUserCircle className="text-xl" />
               <Text>Profile</Text>
             </Group>
