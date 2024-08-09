@@ -5,7 +5,7 @@ export interface IApiGetUserQueryResponse {
   firstname: string;
   lastname: string;
   role: 'STAFF' | 'ADMIN' | 'PROJECT_MANAGER';
-  member?: { id: string };
+  member?: { id: string; position: string; profilePicture?: string };
 }
 
 export interface IApiCreatePostUserMutationParams {
