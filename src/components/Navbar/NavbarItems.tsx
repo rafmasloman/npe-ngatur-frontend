@@ -13,8 +13,6 @@ interface INavbarItemsPropsType {
 }
 
 const NavbarItems = ({ items, pathname }: INavbarItemsPropsType) => {
-  console.log('nav item : ', pathname);
-
   return (
     <Group gap={50}>
       {items.map((item, id) => {

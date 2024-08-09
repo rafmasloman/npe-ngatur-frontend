@@ -3,12 +3,10 @@ import { PasswordInput, PasswordInputProps } from '@mantine/core';
 const BasePasswordInput = ({ ...props }: PasswordInputProps) => {
   return (
     <PasswordInput
-      withAsterisk
-      placeholder="Masukkan Password"
-      label="Password"
       radius={'md'}
+      size="sm"
       classNames={{
-        root: ` w-full`,
+        root: `w-full`,
         input: `p-6 mt-2.5`,
         innerInput: `h-full py-6 px-8`,
         label: `mb-0`,

@@ -5,7 +5,8 @@ const BaseSelectInput = ({ ...props }: SelectProps) => {
     <Select
       classNames={{
         input: `h-[50px] `,
-        label: `mb-2.5`,
+        label: `${!props.description ? 'mb-2.5' : 'mb-0'}`,
+        description: `mb-2.5`,
       }}
       radius={'md'}
       styles={{
@@ -16,6 +17,9 @@ const BaseSelectInput = ({ ...props }: SelectProps) => {
           fontFamily: 'poppins',
         },
         dropdown: {
+          fontFamily: 'poppins',
+        },
+        description: {
           fontFamily: 'poppins',
         },
       }}

@@ -13,11 +13,7 @@ const BaseBarChart = ({ ...props }: BarChartProps) => {
         legendItem: {
           fontFamily: 'poppins',
         },
-        root: {
-          fontFamily: 'poppins',
-        },
       }}
-      classNames={{ root: `h-[300px]`, bar: `w-10` }}
       {...props}
     />
   );
