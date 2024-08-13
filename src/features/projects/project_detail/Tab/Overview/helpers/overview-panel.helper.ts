@@ -3,8 +3,6 @@ export const countStatusTask = (status: string, tasks?: any[]) => {
     return task.status === status;
   }).length;
 
-  console.log(`total task data ${status} : `, tasks);
-
   return totalTodoState;
 };
 
