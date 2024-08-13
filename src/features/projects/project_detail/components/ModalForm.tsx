@@ -9,9 +9,16 @@ interface IModalFormProps {
   btnText: string;
   children: React.ReactNode;
   disable?: boolean;
+  withButton?: boolean;
 }
 
-const ModalForm = ({ title, children, btnText, disable }: IModalFormProps) => {
+const ModalForm = ({
+  title,
+  children,
+  btnText,
+  withButton,
+  disable,
+}: IModalFormProps) => {
   const [opened, { open, close }] = useDisclosure(false);
   const handleConfirmation = () => {
     open();
@@ -37,20 +44,27 @@ const ModalForm = ({ title, children, btnText, disable }: IModalFormProps) => {
           body: `font-poppins`,
           title: `w-full text-center text-lg font-semibold`,
         }}
+        styles={{
+          title: {
+            fontFamily: 'poppins',
+          },
+        }}
       >
         {children}
       </Modal>
 
-      <Group>
-        <BaseButton
-          onClick={handleConfirmation}
-          leftSection={<IconPlus />}
-          variant={'primary'}
-          disabled={disable}
-        >
-          {btnText}
-        </BaseButton>
-      </Group>
+      {withButton ? (
+        <Group>
+          <BaseButton
+            onClick={handleConfirmation}
+            leftSection={<IconPlus />}
+            variant={'primary'}
+            disabled={disable}
+          >
+            {btnText}
+          </BaseButton>
+        </Group>
+      ) : null}
     </>
   );
 };
