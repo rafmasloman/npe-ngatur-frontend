@@ -43,14 +43,16 @@ ITaskPanelProps) => {
               return (
                 <TaskCard
                   key={t.id}
-                  id={t.id}
-                  deadline={t.endDate!}
-                  member={t.member}
-                  text={t.name}
-                  comment={t.comment}
-                  status={t.status}
-                  priority={t.priority}
-                  milestone={t.milestone}
+                  taskData={{
+                    id: t.id,
+                    deadline: t.endDate!,
+                    member: t.member,
+                    text: t.name,
+                    comment: t.comment,
+                    status: t.status,
+                    priority: t.priority,
+                    milestone: t.milestone,
+                  }}
                 />
               );
             })}
@@ -96,14 +98,16 @@ ITaskPanelProps) => {
               return (
                 <TaskCard
                   key={t.id}
-                  id={t.id}
-                  deadline={t.endDate!}
-                  member={t.member}
-                  text={t.name}
-                  comment={t.comment}
-                  status={t.status}
-                  priority={t.priority}
-                  milestone={t.milestone}
+                  taskData={{
+                    id: t.id,
+                    deadline: t.endDate!,
+                    member: t.member,
+                    text: t.name,
+                    comment: t.comment,
+                    status: t.status,
+                    priority: t.priority,
+                    milestone: t.milestone,
+                  }}
                 />
               );
             })}
@@ -126,14 +130,16 @@ ITaskPanelProps) => {
               return (
                 <TaskCard
                   key={t.id}
-                  id={t.id}
-                  deadline={t.endDate!}
-                  member={t.member}
-                  text={t.name}
-                  comment={t.comment}
-                  status={t.status}
-                  priority={t.priority}
-                  milestone={t.milestone}
+                  taskData={{
+                    id: t.id,
+                    deadline: t.endDate!,
+                    member: t.member,
+                    text: t.name,
+                    comment: t.comment,
+                    status: t.status,
+                    priority: t.priority,
+                    milestone: t.milestone,
+                  }}
                 />
               );
             })}
