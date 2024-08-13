@@ -10,7 +10,7 @@ import {
   Tooltip,
   rem,
 } from '@mantine/core';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import useQueryDetailProject from '../../../../services/project/hooks/useQueryDetailProject';
 import { COLORS } from '../../../../constant/colors';
 import { useState } from 'react';
@@ -18,9 +18,13 @@ import BaseTab from '../../../../features/projects/project_detail/Tab/BaseTab';
 import OverviewPanel from '../../../../features/projects/project_detail/Tab/Overview/components/OverviewPanel';
 import { useGetMilestonesByProject } from '../../../../services/milestone/hooks/useQueryMilestoneProject';
 import ModalForm from '../../../../features/projects/project_detail/components/ModalForm';
+import MilestonePanel from '../../../../features/projects/project_detail/Tab/Milestone/components/MilestonePanel';
+import TaskPanel from '../../../../features/projects/project_detail/Tab/Task/components/TaskPanel';
+import InviteMemberForm from '../../../../features/projects/project_detail/components/InviteMemberForm';
 
 const ProjectDetail = () => {
   const params = useParams<{ project_id: string }>();
+  const url = usePathname();
 
   const [activeTab, setActiveTab] = useState<string | null>('overview');
 
@@ -36,8 +40,6 @@ const ProjectDetail = () => {
 
   const milestonesProject = useGetMilestonesByProject(params.project_id);
 
-  console.log('milestones : ', milestonesProject.data);
-
   if (projectDetail.isLoading) {
     return (
       <Text className="text-center h-screen">Loading Detail Project .... </Text>
@@ -46,8 +48,6 @@ const ProjectDetail = () => {
 
   return (
     <Stack className="container mx-auto" gap={0}>
-      {/* <Text>Project Detail Page</Text> */}
-
       <Group
         justify="space-between"
         align="center"
@@ -56,13 +56,13 @@ const ProjectDetail = () => {
         <Stack gap={20}>
           <Group>
             <Avatar
-              src={`${process.env.NEXT_PUBLIC_API_DOWNLOAD_FILES_URL}/projects/${projectDetail?.data?.data.project.projectIcon}`}
+              src={`${process.env.NEXT_PUBLIC_API_DOWNLOAD_FILES_URL}/projects/${projectDetail?.data?.project.projectIcon}`}
               alt={'Project Showcase'}
               className="w-1.5 h-fit md:w-12 md:h-fit"
             />
 
             <Text className="text-base md:text-base lg:text-4xl" fw={600}>
-              {projectDetail?.data?.data.project.projectName}
+              {projectDetail?.data?.project.projectName}
             </Text>
           </Group>
 
@@ -70,14 +70,14 @@ const ProjectDetail = () => {
             className="text-xs md:text-sm lg:text-base w-full md:w-2/3"
             ta="justify"
           >
-            {projectDetail?.data?.data.project.description}
+            {projectDetail?.data?.project.description}
           </Text>
 
           <Group>
             <Text className="text-gray-400 text-xs md:text-sm lg:text-base ">
               Avaiable on :{' '}
             </Text>
-            {projectDetail?.data?.data.project.platform
+            {projectDetail?.data?.project.platform
               ?.split(',')
               .map((platform: any, index: number) => {
                 return (
@@ -87,7 +87,7 @@ const ProjectDetail = () => {
                     bg={index % 2 === 0 ? COLORS.secondary : COLORS.third}
                     px={10}
                     py={4}
-                    color="white"
+                    c="white"
                     style={{
                       borderRadius: '7px',
                     }}
@@ -102,20 +102,22 @@ const ProjectDetail = () => {
             <Text className="text-gray-400">Project Progress : </Text>
             <Progress
               value={
-                !projectDetail?.data?.data.project.progress
+                !projectDetail?.data?.project.progress
                   ? 0
-                  : projectDetail?.data?.data.project.progress
+                  : projectDetail?.data?.project.progress
               }
               radius={'lg'}
               size={'lg'}
               className="w-[300px] h-[18px]"
               color={
-                projectDetail?.data?.data.project.progress > 0 &&
-                projectDetail?.data?.data.project.progress < 100
-                  ? COLORS.primary
-                  : projectDetail?.data?.data.project.progress === 100
-                  ? 'green'
-                  : 'gray'
+                !!projectDetail.data?.project
+                  ? projectDetail?.data?.project?.progress > 0 &&
+                    projectDetail?.data?.project?.progress < 100
+                    ? COLORS.primary
+                    : projectDetail?.data?.project.progress === 100
+                    ? 'green'
+                    : 'gray'
+                  : undefined
               }
               styles={{
                 label: {
@@ -128,9 +130,12 @@ const ProjectDetail = () => {
         </Stack>
 
         <Stack gap={30} align="start">
-          <ModalForm btnText="Invite Member" title="Invite Member to Project">
-            {/* <InviteMemberForm project={project} /> */}
-            <Text>Tess</Text>
+          <ModalForm
+            btnText="Invite Member"
+            withButton
+            title="Invite Member to Project"
+          >
+            <InviteMemberForm />
           </ModalForm>
 
           <Group align="end" justify="right">
@@ -139,18 +144,37 @@ const ProjectDetail = () => {
                 Teams Project
               </Text>
               <Avatar.Group spacing={'md'}>
-                {projectDetail?.data?.data.project.member?.map(
+                {projectDetail?.data?.project.member?.map(
                   (member: any, index: number) => {
-                    return (
-                      <Tooltip key={index} label={`${member.user?.firstname}`}>
+                    if (index < 2) {
+                      return (
+                        <Tooltip
+                          key={index}
+                          label={`${member.user?.firstname}`}
+                        >
+                          <Avatar
+                            radius={'xl'}
+                            size={45}
+                            src={`${process.env.NEXT_PUBLIC_API_DOWNLOAD_FILES_URL}/members/${member.profilePicture}`}
+                            className="border border-solid border-gray-300"
+                          />
+                        </Tooltip>
+                      );
+                    } else {
+                      return (
                         <Avatar
-                          radius={'xl'}
+                          key={index}
                           size={45}
-                          src={`${process.env.NEXT_PUBLIC_API_DOWNLOAD_FILES_URL}/members/${member.profilePicture}`}
                           className="border border-solid border-gray-300"
-                        />
-                      </Tooltip>
-                    );
+                        >
+                          <Text className="font-normal">
+                            +
+                            {projectDetail?.data?.project?.member?.length -
+                              index}
+                          </Text>
+                        </Avatar>
+                      );
+                    }
                   },
                 )}
               </Avatar.Group>
@@ -160,30 +184,38 @@ const ProjectDetail = () => {
       </Group>
 
       <BaseTab>
-        <Tabs.Panel className="" value="overview" pt={rem(50)}>
+        <Tabs.Panel value="overview" className="pt-12">
           <OverviewPanel
-            projectName={projectDetail.data?.data.project.projectName}
-            projectPrice={projectDetail.data?.data.project.price}
-            deadline={projectDetail.data?.data.project.endDate}
-            task={projectDetail.data?.data.todos}
-            totalTask={projectDetail.data?.data.project.task.length}
-            assignMember={projectDetail.data?.data.project.member.map((m) => {
+            projectName={projectDetail.data?.project.projectName}
+            projectPrice={projectDetail.data?.project.price}
+            deadline={projectDetail.data?.project.endDate}
+            task={projectDetail.data?.todos}
+            totalTask={projectDetail.data?.project.task.length}
+            assignMember={projectDetail.data?.project.member}
+            client={{
+              name: projectDetail.data?.project?.client?.name,
+              address: projectDetail.data?.project?.client?.address,
+              phoneNumber: projectDetail.data?.project?.client?.phoneNumber,
+            }}
+          />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="tasks" className="pt-12">
+          <TaskPanel
+            todos={projectDetail?.data?.todos}
+            project={projectDetail.data?.project}
+            milestones={milestonesProject.data?.map((milestone: any) => {
               return {
-                id: m.id,
-                fullname: `${m.user.firstname} ${m.user.lastname}`,
-                position: m.position,
-                profilePicture: m.profilePicture,
+                id: milestone.id,
+                milestoneName: milestone.milestoneName,
+                endDate: milestone.endDate,
               };
             })}
           />
         </Tabs.Panel>
 
-        <Tabs.Panel value="tasks" pt={rem(50)}>
-          <Text>Task Workspace</Text>
-        </Tabs.Panel>
-
-        <Tabs.Panel value="milestone" pt={rem(50)}>
-          <Text>Task Workspace</Text>
+        <Tabs.Panel value="milestone" className="pt-12">
+          <MilestonePanel isRolePM={true} />
         </Tabs.Panel>
       </BaseTab>
     </Stack>
