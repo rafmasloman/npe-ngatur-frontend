@@ -1,25 +1,21 @@
 'use client';
 
-import { Container, SimpleGrid, Stack, Tabs, Text } from '@mantine/core';
+import { Center, SimpleGrid, Stack, Text } from '@mantine/core';
 import useQueryProjects from '../../../services/project/hooks/useQueryProjects';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ProjectCard from '../../../features/projects/components/ProjectCard';
+import { AuthContext } from '../../../context/AuthContext';
+import useQueryMemberProject from '../../../services/member/hooks/useQueryMemberProjects';
+import Link from 'next/link';
 
 const ProjectPage = () => {
-  const projects = useQueryProjects({
-    onSuccesCb(data) {
-      return data.data;
-    },
-    onErrorCb(error) {
-      console.log('error : ', error);
-    },
-  });
+  const user = useContext(AuthContext);
 
-  console.log('projects loading : ', projects.data?.data);
+  const projects = useQueryMemberProject(user.user?.id);
 
-  if (projects.isLoading) {
-    return <Text>Loading Your Project...</Text>;
-  }
+  // if (projects.isLoading && !projects.data) {
+  //   return <Text>Loading Your Project...</Text>;
+  // }
 
   return (
     <Stack className="container mx-auto">
@@ -27,14 +23,32 @@ const ProjectPage = () => {
         Daftar Projects
       </Text>
 
-      <SimpleGrid
-        cols={{ base: 1, sm: 2, lg: 4 }}
-        spacing={{ base: 10, sm: 'xl' }}
-      >
-        {projects.data?.data.map((project) => {
-          return <ProjectCard key={project.id} {...project} />;
-        })}
-      </SimpleGrid>
+      {projects.data?.member?.project.length <= 0 ? (
+        <Center
+          h={200}
+          className="border-[3px] bg-white  border-neutral-200 border-dashed rounded-lg w-full"
+        >
+          <Text>Anda belum memiliki project</Text>
+        </Center>
+      ) : (
+        <SimpleGrid
+          cols={{ base: 1, sm: 2, lg: 4 }}
+          spacing={{ base: 10, sm: 'xl' }}
+        >
+          {projects.data?.member?.project.map((project: any, index: number) => {
+            return (
+              <Link
+                key={index}
+                href={`/${
+                  user?.user?.role === 'STAFF' ? 'staff' : 'project-manager'
+                }/project/${project.id}`}
+              >
+                <ProjectCard key={index} {...project} />
+              </Link>
+            );
+          })}
+        </SimpleGrid>
+      )}
     </Stack>
   );
 };
