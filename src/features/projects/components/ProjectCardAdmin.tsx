@@ -17,7 +17,7 @@ import { filterCompletedTask } from '../helpers/ProjectCardHelpers';
 import moment from 'moment';
 import { IoFileTrayStacked } from 'react-icons/io5';
 
-const ProjectCard = (props: IProjectResponseApi) => {
+const ProjectAdminCard = (props: IProjectResponseApi) => {
   return (
     <Card
       className={`bg- w-full z-20  h-full  bg-white  mb-10 lg:md-0 border-2 border-solid border-neutral-200  `}
@@ -28,14 +28,14 @@ const ProjectCard = (props: IProjectResponseApi) => {
       p={24}
       classNames={{
         root: `
-              transition-all
-              duration-300
-              hover:shadow-[7px_7px_0px] 
-              hover:-translate-x-[5px] 
-              hover:-translate-y-[5px]  
-              hover:shadow-[#1679AB]
-              hover:border
-              hover:border-neutral-300`,
+                transition-all
+                duration-300
+                hover:shadow-[7px_7px_0px] 
+                hover:-translate-x-[5px] 
+                hover:-translate-y-[5px]  
+                hover:shadow-[#1679AB]
+                hover:border
+                hover:border-neutral-300`,
       }}
       //   onMouseEnter={handleMouseEnter}
       //   onMouseLeave={handleMouseLeave}
@@ -60,7 +60,7 @@ const ProjectCard = (props: IProjectResponseApi) => {
             />
           )}
 
-          <Grid mt={10}>
+          <Grid mt={25}>
             {props.platform?.split(',').map((platform, index) => {
               return (
                 <Grid.Col
@@ -74,7 +74,9 @@ const ProjectCard = (props: IProjectResponseApi) => {
                       borderRadius: '7px',
                     }}
                   >
-                    <Text c="white">{platform}</Text>
+                    <Text c="white" className="text-xs">
+                      {platform}
+                    </Text>
                   </Box>
                 </Grid.Col>
               );
@@ -98,24 +100,24 @@ const ProjectCard = (props: IProjectResponseApi) => {
         </Stack>
         <Group justify="space-between">
           <Group style={{ position: 'relative' }}>
-            {/* <Avatar.Group spacing={'sm'}>
-                {props.member?.map((m, index) => {
-                  return (
-                    <Tooltip
-                      key={index}
-                      label={`${m.user?.firstname} ${m.user?.lastname}`}
-                    >
-                      <Avatar
-                        style={{ zIndex: index }}
-                        radius={'xl'}
-                        size={32}
-                        src={`${process.env.NEXT_PUBLIC_API_DOWNLOAD_FILES_URL}/members/${m?.profilePicture}`}
-                        className="border border-solid border-gray-300"
-                      />
-                    </Tooltip>
-                  );
-                })}
-              </Avatar.Group> */}
+            <Avatar.Group spacing={'sm'}>
+              {props.member?.map((m, index) => {
+                return (
+                  <Tooltip
+                    key={index}
+                    label={`${m.user?.firstname} ${m.user?.lastname}`}
+                  >
+                    <Avatar
+                      style={{ zIndex: index }}
+                      radius={'xl'}
+                      size={32}
+                      src={`${process.env.NEXT_PUBLIC_API_DOWNLOAD_FILES_URL}/members/${m?.profilePicture}`}
+                      className="border border-solid border-gray-300"
+                    />
+                  </Tooltip>
+                );
+              })}
+            </Avatar.Group>
           </Group>
 
           <Stack gap={5}>
@@ -132,4 +134,4 @@ const ProjectCard = (props: IProjectResponseApi) => {
   );
 };
 
-export default ProjectCard;
+export default ProjectAdminCard;

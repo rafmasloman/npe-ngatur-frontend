@@ -25,8 +25,6 @@ const TabListData: TabListDataType[] = [
 ];
 
 const TabList = ({ activeTab }: { activeTab: string | null }) => {
-  console.log('tab : ', activeTab);
-
   return (
     <Tabs.List>
       {TabListData.map((item: TabListDataType) => {
@@ -38,7 +36,6 @@ const TabList = ({ activeTab }: { activeTab: string | null }) => {
             value={item.value}
             pb={rem(20)}
             pl={0}
-            className=""
             classNames={{
               tabLabel: `${
                 activeTab === item.value ? 'text-primary' : 'text-cust-black'
