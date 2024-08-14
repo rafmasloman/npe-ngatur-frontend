@@ -13,7 +13,7 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { useDebounce } from '@uidotdev/usehooks';
+// import { useDebounce } from '@uidotdev/usehooks';
 import { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import useQueryProjects from '../../../services/project/hooks/useQueryProjects';
@@ -26,9 +26,8 @@ const ModalProjectPayroll = (props: ModalProps) => {
   const [searchTerm, setSearchTerm] = useState<any>('');
   const [results, setResults] = useState<IProjectResponseApi[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [projectId, setProjectId] = useState<string | null>(null);
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  // const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const queryProjects = useQueryProjects({
     onSuccesCb(data) {},
     onErrorCb(error) {},
@@ -48,17 +47,17 @@ const ModalProjectPayroll = (props: ModalProps) => {
     e.target.focus();
   };
 
-  useEffect(() => {
-    if (queryProjects.data) {
-      if (debouncedSearchTerm) {
-        setIsSearching(true);
-        setResults(queryProjects.data);
-      }
-      setIsSearching(false);
-    } else {
-      setResults([]);
-    }
-  }, [debouncedSearchTerm, queryProjects.data]);
+  // useEffect(() => {
+  //   if (queryProjects.data) {
+  //     if (debouncedSearchTerm) {
+  //       setIsSearching(true);
+  //       setResults(queryProjects.data);
+  //     }
+  //     setIsSearching(false);
+  //   } else {
+  //     setResults([]);
+  //   }
+  // }, [debouncedSearchTerm, queryProjects.data]);
 
   return (
     <Modal
@@ -82,7 +81,7 @@ const ModalProjectPayroll = (props: ModalProps) => {
     >
       <form onSubmit={handleSubmit}>
         <Grid align="center">
-          <Grid.Col span={10}>
+          {/* <Grid.Col span={10}>
             <TextInput
               name="search"
               radius={'md'}
@@ -111,7 +110,7 @@ const ModalProjectPayroll = (props: ModalProps) => {
             >
               {isSearching ? '...' : <BiSearch />}
             </ActionIcon>
-          </Grid.Col>
+          </Grid.Col> */}
         </Grid>
       </form>
 
