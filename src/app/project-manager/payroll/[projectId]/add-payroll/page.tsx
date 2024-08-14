@@ -88,8 +88,6 @@ const AddPayrollManagement = () => {
   };
 
   const handleOpenModalEditPayroll = (memberId: string, payrollId: string) => {
-    console.log('pay id : ', payrollId);
-    console.log('mem id : ', memberId);
     setPayrollID(payrollId);
     setMemberId(memberId);
     modal.open();
@@ -108,8 +106,6 @@ const AddPayrollManagement = () => {
       return salary[0];
     }
   };
-
-  console.log('project member : ', projectMemberPayroll.data);
 
   const tBody = projectMemberPayroll?.data?.member?.map(
     (ctx: any, index: number) => {
