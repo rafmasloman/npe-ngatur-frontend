@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { GET_TASK_COMMENTS } from '../../../constant/query_key';
 
 interface QueryCommentsOption {
-  taskId: number;
+  taskId?: number;
   onSuccesCb: (data: any) => void;
   onErrorCb: (error: Error) => void;
 }
@@ -17,6 +17,10 @@ export const useQueryTaskComments = ({
   const query = useQuery({
     queryKey: [GET_TASK_COMMENTS, taskId],
     queryFn: () => commentService.getCommentByTask(taskId),
+    // enabled: !!taskId,
+    select(data) {
+      return data.data;
+    },
   });
 
   useEffect(() => {

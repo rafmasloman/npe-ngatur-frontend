@@ -1,5 +1,5 @@
 export interface IPostCommentMutationParams {
   message: string;
-  taskId: string;
+  taskId: number;
   userId: string;
 }

@@ -15,9 +15,11 @@ class CommentServiceApi {
     }
   }
 
-  async getCommentByTask(taskId: number) {
+  async getCommentByTask(taskId?: number) {
     try {
-      const response = await http.get(`${API_ROUTES.COMMENT}/${taskId}`);
+      const response = await http.get(
+        `${API_ROUTES.COMMENT}/task?taskId=${taskId}`,
+      );
 
       const data = await response.data;
 
