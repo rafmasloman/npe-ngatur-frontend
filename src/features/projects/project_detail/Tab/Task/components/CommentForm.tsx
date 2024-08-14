@@ -5,9 +5,10 @@ import { useForm } from '@mantine/form';
 
 interface ICommentFormPropsType {
   onSubmit: (values: any) => void;
+  isLoading?: boolean;
 }
 
-const CommentForm = ({ onSubmit }: ICommentFormPropsType) => {
+const CommentForm = ({ onSubmit, isLoading }: ICommentFormPropsType) => {
   const commentForm = useForm({
     initialValues: {
       message: '',
@@ -30,6 +31,7 @@ const CommentForm = ({ onSubmit }: ICommentFormPropsType) => {
           <ActionIcon
             type="submit"
             variant="filled"
+            loading={isLoading}
             size={32}
             radius={'md'}
             className="bg-primary h-full"

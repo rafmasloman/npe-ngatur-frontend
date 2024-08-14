@@ -28,6 +28,7 @@ import CommentDrawer from './CommentDrawer';
 import useDeleteTask from '../../../../../../services/task/hooks/useDeleteTask';
 import TaskModalForm from './TaskModalForm';
 import ModalForm from '../../../components/ModalForm';
+import { useQueryTaskComments } from '../../../../../../services/comment/hooks/useQueryTaskComments';
 
 interface ITaskCardProps {
   taskData?: {
@@ -63,12 +64,20 @@ interface IUserMemberTaskCardProps {
 }
 
 const TaskCard = ({ taskData, actions }: ITaskCardProps) => {
-  const [taskId, setTaskId] = useState<number | null>(null);
+  const [taskId, setTaskId] = useState<number | undefined>(undefined);
 
   const { isDragging, dragRef } = useDragItem('task', {
     id: taskData?.id,
     text: taskData?.text,
     status: taskData?.status,
+  });
+
+  const comments = useQueryTaskComments({
+    taskId,
+    onSuccesCb(data) {
+      return data;
+    },
+    onErrorCb(error) {},
   });
 
   const deleteTask = useDeleteTask();
@@ -84,10 +93,6 @@ const TaskCard = ({ taskData, actions }: ITaskCardProps) => {
     if (taskData?.id) {
       deleteTask.mutate(taskData?.id);
     }
-
-    // console.log('task id : ', id);
-
-    // close();
   };
 
   const handleOpenDrawer = () => {
@@ -214,7 +219,7 @@ const TaskCard = ({ taskData, actions }: ITaskCardProps) => {
         }}
         ff={'poppins'}
       >
-        <CommentDrawer taskId={taskId!} messageData={[]} />
+        <CommentDrawer taskId={taskId} comments={comments.data} />
       </Drawer>
 
       <Group justify="space-between" className="w-full">
@@ -233,22 +238,6 @@ const TaskCard = ({ taskData, actions }: ITaskCardProps) => {
             {taskData?.priority?.charAt(0).toUpperCase()! +
               taskData?.priority?.slice(1).toLowerCase()!}
           </Badge>
-
-          <Tooltip
-            label={
-              <Group gap={5}>
-                <Text className="text-xs">Milestone : </Text>
-                <Text className="text-xs line-clamp-1">
-                  {taskData?.milestone?.milestoneName}
-                </Text>
-              </Group>
-            }
-          >
-            <div className="flex flex-row gap-1.5 bg-white border border-solid border-gray-300 rounded-full px-1.5 py-0.5">
-              <ICMilestone width={16} height={16} />
-              <Text className="text-xs">Milestone</Text>
-            </div>
-          </Tooltip>
         </Group>
 
         <Group justify="space-between" className="cursor-default" bg={'white'}>
@@ -323,10 +312,26 @@ const TaskCard = ({ taskData, actions }: ITaskCardProps) => {
           <Group gap={5} onClick={handleOpenDrawer}>
             <HiOutlineChatBubbleLeftRight className="text-neutral-400 hover:text-primary cursor-pointer" />
             <Text fz={rem(12)} c={COLORS.gray}>
-              {/* {commentData?.data?.length} */}
-              10
+              {comments.data?.length}
             </Text>
           </Group>
+
+          <Tooltip
+            ff={'poppins'}
+            label={
+              <Group gap={5}>
+                <Text className="text-xs">Milestone : </Text>
+                <Text className="text-xs line-clamp-1">
+                  {taskData?.milestone?.milestoneName}
+                </Text>
+              </Group>
+            }
+          >
+            <div className="flex flex-row gap-1.5 bg-white border border-solid border-neutral-300 rounded-full px-1.5 py-0.5">
+              <ICMilestone width={16} height={16} />
+              <Text className="text-xs">Milestone</Text>
+            </div>
+          </Tooltip>
         </Group>
 
         {/* <TaskStatusMenu id={Number(id)!} /> */}
