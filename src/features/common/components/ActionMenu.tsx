@@ -1,29 +1,27 @@
-import { FloatingPosition, Menu } from '@mantine/core';
+import { FloatingPosition, Menu, MenuProps } from '@mantine/core';
 import { IconDots, IconPencil, IconTrash } from '@tabler/icons-react';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 
-interface IActionMenuProps {
+interface IActionMenuProps extends MenuProps {
   actions: {
     onDelete?: ReactNode;
     onEdit?: ReactNode;
   };
-  opened: boolean;
-  setOpened: Dispatch<SetStateAction<boolean>>;
-  children?: ReactNode;
-  position: FloatingPosition;
+  itemId?: number | string;
+  currentId?: number | string;
 }
+
 const ActionMenu = ({
   actions,
   opened,
-  setOpened,
   children,
-  position,
+  ...props
 }: IActionMenuProps) => {
   return (
     <Menu
-      position={position}
+      position={props.position}
       opened={opened}
-      onChange={setOpened}
+      onChange={props.onChange}
       styles={{
         item: {
           padding: 5,

@@ -40,6 +40,7 @@ interface IDetailProjectParams {
   clientId?: string;
   member?: any;
   price?: number;
+  projectIconFileUrl?: string;
 }
 
 export interface IProjectFormValuesParams {
@@ -330,7 +331,7 @@ const ProjectForm = ({
                         radius={'sm'}
                         src={
                           !iconFileSrc
-                            ? `http://localhost:5000/api/v1/files/download/projects/${initialValues?.projectIcon}`
+                            ? `http://localhost:5000/api/v1/files/download/projects/${initialValues?.projectIconFileUrl}`
                             : iconFileSrc
                         }
                         alt="Project Icon"
