@@ -9,17 +9,26 @@ import useQueryDetailProject from '../../../../../services/project/hooks/useQuer
 import FormAdminLayout from '../../../../../layouts/FormLayout';
 import { Text } from '@mantine/core';
 import { useGetUserNonMember } from '../../../../../features/member/hooks/useGetUserNonMember';
+import { useQueryDownloadedFile } from '../../../../../services/files/hooks/useQueryDownloadFile';
+import { useEffect, useState } from 'react';
 
 const EditProjectAdminPage = () => {
   const params = useParams<{ project_id: string }>();
 
   const updateProject = useUpdateProject();
+  const [projectIconFile, setProjectIconFile] = useState<any>(null);
+
   const projectManagerOptions = useGetUserNonMember();
 
   const project = useQueryDetailProject({
     projectId: params.project_id,
     onSuccesCb(data) {},
     onErrorCb(error) {},
+  });
+
+  const projectIcon = useQueryDownloadedFile({
+    fileName: project.data?.project.projectIcon,
+    fileFolder: 'projects',
   });
 
   const handleUpdateProject = (values: any) => {
@@ -46,6 +55,12 @@ const EditProjectAdminPage = () => {
     updateProject.mutate({ projectId: params.project_id, params: formData });
   };
 
+  useEffect(() => {
+    if (projectIcon.data) {
+      setProjectIconFile(projectIcon.data);
+    }
+  }, [projectIcon.data]);
+
   if (!project.data?.project && project.isLoading) {
     return <Text>Loading Initial Data...</Text>;
   }
@@ -64,7 +79,8 @@ const EditProjectAdminPage = () => {
           price: project.data?.project.price,
           startedDate: project.data?.project.startedDate,
           endDate: project.data?.project.endDate,
-          projectIcon: project.data?.project.projectIcon,
+          projectIcon: projectIconFile,
+          projectIconFileUrl: project.data?.project?.projectIcon,
           member: project.data?.project.projectManager,
           platform: project.data?.project.platform,
           clientId: project.data?.project.client.id,

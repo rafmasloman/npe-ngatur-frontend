@@ -84,41 +84,34 @@ const ProjectPMPage = () => {
                 key={project.id}
                 className="relative w-full   md:w-[320px]  lg:w-[350px] "
               >
-                <div className="absolute z-30 right-6 top-2.5 cursor-pointer">
-                  <ActionMenu
-                    position="bottom"
-                    opened={isProjectMenuOpen}
-                    setOpened={setProjectMenuOpen}
-                    actions={{
-                      onDelete: (
-                        <Menu.Item
-                          leftSection={
-                            <IconTrash size={20} color={COLORS.danger} />
-                          }
-                          className="text-red-500"
-                          onClick={() => modal.handleConfirm(project.id)}
-                        >
-                          Hapus
-                        </Menu.Item>
-                      ),
-                      onEdit: (
-                        <Menu.Item
-                          leftSection={
-                            <IconPencil size={20} color={COLORS.secondary} />
-                          }
-                          className="text-blue-950"
-                          component="a"
-                          href={`/admin/project/${project.id}/edit-project`}
-                        >
-                          Edit
-                        </Menu.Item>
-                      ),
-                    }}
-                  />
-                </div>
-                <Link href={`${PROJECTS_ADMIN_PAGE}/${project.id}/detail`}>
-                  <ProjectAdminCard {...project} />
-                </Link>
+                <ProjectAdminCard
+                  data={{ ...project }}
+                  controller={{
+                    onDelete: (
+                      <Menu.Item
+                        leftSection={
+                          <IconTrash size={20} color={COLORS.danger} />
+                        }
+                        className="text-red-500"
+                        onClick={() => modal.handleConfirm(project.id)}
+                      >
+                        Hapus
+                      </Menu.Item>
+                    ),
+                    onEdit: (
+                      <Menu.Item
+                        leftSection={
+                          <IconPencil size={20} color={COLORS.secondary} />
+                        }
+                        className="text-blue-950"
+                        component="a"
+                        href={`/admin/project/${project.id}/edit-project`}
+                      >
+                        Edit
+                      </Menu.Item>
+                    ),
+                  }}
+                />
               </div>
             );
           })}
