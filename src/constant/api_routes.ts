@@ -12,6 +12,7 @@ export const API_ROUTES = {
   PROFILE: 'profile',
   LOGIN: 'auth/login',
   AUTH_CREDENTIAL: 'auth/credential',
+  FILES: '/files/download',
 };
 
 export const API_BASE_URL = 'http://localhost:5000/api/v1';
