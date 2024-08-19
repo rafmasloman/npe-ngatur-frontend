@@ -245,7 +245,7 @@ const TaskCard = ({ taskData, actions }: ITaskCardProps) => {
             <ActionMenu
               position="right"
               opened={isProjectMenuOpen}
-              setOpened={setProjectMenuOpen}
+              onChange={setProjectMenuOpen}
               actions={{
                 onDelete: (
                   <Menu.Item
