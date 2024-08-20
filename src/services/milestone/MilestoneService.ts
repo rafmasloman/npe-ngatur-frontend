@@ -26,7 +26,7 @@ class MilestonService {
 
   async getDetailMilestone(milestoneId: string) {
     try {
-      const response = await http.get(`${this.routesName}/${milestoneId}`);
+      const response = await http.get(`${API_ROUTES.MILESTONE}/${milestoneId}`);
 
       const data = await response.data;
 
@@ -41,7 +41,7 @@ class MilestonService {
   async getMilestoneDeadline(milestoneId?: string) {
     try {
       const response = await http.get(
-        `${this.routesName}/deadline/${milestoneId}`,
+        `${API_ROUTES.MILESTONE}/deadline/${milestoneId}`,
       );
 
       const data = await response.data;
@@ -57,7 +57,7 @@ class MilestonService {
   async getMilestonesByProject(projectId: string) {
     try {
       const response = await http.get(
-        `${this.routesName}/project/${projectId}`,
+        `${API_ROUTES.MILESTONE}/project/${projectId}`,
       );
 
       const data = await response.data;
@@ -72,7 +72,7 @@ class MilestonService {
 
   async createMilestone(payload: IApiMilestonePayloadMutation) {
     try {
-      const response = await http.post(this.routesName, payload);
+      const response = await http.post(API_ROUTES.MILESTONE, payload);
 
       const data = await response.data;
 
@@ -90,7 +90,7 @@ class MilestonService {
   }) {
     try {
       const response = await http.put(
-        `${this.routesName}/${params.milestoneId}`,
+        `${API_ROUTES.MILESTONE}/${params.milestoneId}`,
         params.payload,
       );
 
@@ -110,7 +110,7 @@ class MilestonService {
   ) {
     try {
       const response = await http.put(
-        `${this.routesName}/status/${milestoneId}`,
+        `${API_ROUTES.MILESTONE}/status/${milestoneId}`,
         payload,
       );
 
@@ -127,7 +127,9 @@ class MilestonService {
 
   async deleteMilestone(milestoneId?: string) {
     try {
-      const response = await http.delete(`${this.routesName}/${milestoneId}`);
+      const response = await http.delete(
+        `${API_ROUTES.MILESTONE}/${milestoneId}`,
+      );
 
       const data = await response.data;
       console.log(data);

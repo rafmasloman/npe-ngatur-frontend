@@ -74,12 +74,15 @@ export async function middleware(request: NextRequest) {
       decodeToken = JSON.stringify(jwtDecode(token.value));
       userData = JSON.parse(decodeToken);
 
-      const response = await fetch(`${API_BASE_URL}/users/${userData.id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token.value}`,
+      const response = await fetch(
+        `${API_MIDDLEWARE_BASE_DEVELOPMENT_URL}/users/${userData.id}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token.value}`,
+          },
         },
-      });
+      );
 
       const data = await response.json();
 
