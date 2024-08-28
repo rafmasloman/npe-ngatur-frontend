@@ -2,7 +2,9 @@ import axios from 'axios';
 import TokenUtils from '../../utils/token';
 
 export const http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_LOCAL_URL,
+  baseURL:
+    process.env.NEXT_PUBLIC_API_PRODUCTION_URL ||
+    process.env.NEXT_PUBLIC_API_LOCAL_URL,
 });
 
 http.interceptors.request.use(
