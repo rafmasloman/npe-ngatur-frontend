@@ -26,6 +26,7 @@ const NavbarAdmin = () => {
       <NavLink
         href={DASHBOARD_ADMIN_PAGE}
         label="Dashboard"
+        component={Link}
         leftSection={<ICDashboard width={25} height={25} />}
         classNames={{
           root: `hover:bg-sky-50 w-[230px] rounded-lg`,
@@ -47,6 +48,7 @@ const NavbarAdmin = () => {
         <NavLink
           label="User Management"
           href={USER_ADMIN_PAGE}
+          component={Link}
           leftSection={<ICUser width={23} height={23} />}
           classNames={{
             root: `hover:bg-sky-50 w-[230px] rounded-lg`,
@@ -59,6 +61,7 @@ const NavbarAdmin = () => {
         <NavLink
           label="Crew"
           href={MEMBER_ADMIN_PAGE}
+          component={Link}
           leftSection={<ICTeams width={23} height={23} />}
           classNames={{
             root: `hover:bg-sky-50 w-[230px] rounded-lg`,
@@ -71,6 +74,7 @@ const NavbarAdmin = () => {
         <NavLink
           label="Client"
           href={CLIENT_ADMIN_PAGE}
+          component={Link}
           leftSection={<ICClient width={23} height={23} />}
           classNames={{
             root: `hover:bg-sky-50 w-[230px] rounded-lg`,
@@ -82,6 +86,7 @@ const NavbarAdmin = () => {
       <NavLink
         href={PAYROLL_ADMIN_PAGE}
         label="Gaji / Payroll"
+        component={Link}
         leftSection={<ICPayroll width={25} height={25} />}
         classNames={{
           root: `hover:bg-sky-50 w-[230px] rounded-lg`,
@@ -92,6 +97,7 @@ const NavbarAdmin = () => {
       <NavLink
         href={PROJECTS_ADMIN_PAGE}
         label="Projects"
+        component={Link}
         leftSection={<ICProject width={25} height={25} />}
         classNames={{
           root: `hover:bg-sky-50 w-[230px] rounded-lg`,
