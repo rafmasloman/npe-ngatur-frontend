@@ -29,33 +29,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     onErrorCb(error) {},
   });
 
-  // useEffect(() => {
-  //   const getToken = TokenUtils.getToken();
-  //   console.log('token : ', getToken);
-
-  //   if (getToken) {
-  //     if (credential.data) {
-  //       setUser(credential.data);
-  //     }
-  //   }
-  // }, [credential.data]);
-
-  if (credential.isFetching && !credential.data) {
-    return (
-      // <Suspense
-      //   fallback={
-      //     <Box className=" min-h-screen max-w-screen flex justify-center items-center">
-      //       <Loader color="blue" size={50} type="bars" />
-      //     </Box>
-      //   }
-      // >
-      <Box className=" min-h-screen max-w-screen flex justify-center items-center">
-        <Loader color="blue" size={50} type="bars" />
-      </Box>
-      // </Suspense>
-    );
-  }
-
   return (
     <AuthContext.Provider value={{ user: user }}>
       {children}
