@@ -1,26 +1,30 @@
+'use client';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GET_ALL_USERS } from '../../../constant/query_key';
 import { useRouter } from 'next/navigation';
 import NotificationAdmin from '../../../features/common/components/NotificationAdmin';
 import authService from '../AuthService';
 
-const useChangeUserPassword = () => {
+const useUpdateUserAccount = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: authService.changeUserPassword,
+    mutationFn: authService.updateUserAccount,
     onSuccess(data, variables, context) {
-      if (!data.data) {
+      console.log('datass : ', data);
+
+      if (!data) {
         NotificationAdmin({
-          title: 'Gagal Mengubah Password User',
-          message: 'Username atau password salah ',
+          title: 'Gagal mengubah user account',
+          message: 'Email atau password salah ',
           status: 'FAILED',
         });
       } else {
         NotificationAdmin({
           title: 'Berhasil',
-          message: 'Berhasil Mengubah Password User',
+          message: 'Berhasil mengubah user account',
           status: 'SUCCESS',
         });
 
@@ -29,7 +33,7 @@ const useChangeUserPassword = () => {
     },
     onError(error, variables, context) {
       NotificationAdmin({
-        title: 'Gagal mengubah password user',
+        title: 'Gagal mengubah user account',
         message: 'Masalah tidak diketahui',
         status: 'FAILED',
       });
@@ -39,4 +43,4 @@ const useChangeUserPassword = () => {
   return mutation;
 };
 
-export default useChangeUserPassword;
+export default useUpdateUserAccount;

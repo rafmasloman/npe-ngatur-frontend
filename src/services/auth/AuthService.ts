@@ -48,6 +48,30 @@ class AuthServiceApi {
       throw error;
     }
   }
+
+  async updateUserAccount(ctx: {
+    userId: string;
+    payload: { email: string; newPassword: string };
+  }) {
+    try {
+      console.log('data : ', ctx);
+
+      const response = await http.put(
+        `${API_ROUTES.AUTH}/${ctx.userId}/update-user-account`,
+        {
+          ...ctx.payload,
+        },
+      );
+
+      const data = await response.data;
+
+      return data;
+    } catch (error) {
+      console.log('errorss : ', error);
+
+      throw error;
+    }
+  }
 }
 
 const authService = new AuthServiceApi();
