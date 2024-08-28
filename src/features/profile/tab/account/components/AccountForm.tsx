@@ -1,8 +1,9 @@
 import { Group, SimpleGrid, Stack } from '@mantine/core';
 import BaseTextInput from '../../../../../components/Input/BaseTextInput';
 import BaseButton from '../../../../../components/Button/BaseButton';
-import { useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
 import BasePasswordInput from '../../../../../components/Input/BasePasswordInput';
+import { UserProfileAccountSchema } from '../helpers/account.schema';
 
 interface IAccountFormProps {
   initialValues?: IUserAuthDetailValue;
@@ -16,6 +17,7 @@ export interface IUserAuthDetailValue {
 
 const AccountForm = ({ initialValues, onSubmit }: IAccountFormProps) => {
   const form = useForm({
+    validate: zodResolver(UserProfileAccountSchema),
     initialValues: {
       email: initialValues?.email || '',
       password: initialValues?.password || '',

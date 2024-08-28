@@ -1,13 +1,30 @@
+'use client';
+
 import { Box, Divider, Group, Stack, Text } from '@mantine/core';
 import AccountForm from './AccountForm';
+import useUpdateUserAccount from '../../../../../services/auth/hooks/useUpdateUserAccount';
+import { useContext } from 'react';
+import { AuthContext } from '../../../../../context/AuthContext';
 
 const AccountPanel = () => {
+  const user = useContext(AuthContext);
+
+  const updateUserAccount = useUpdateUserAccount();
+
   const handleUpdateAccount = (values: any) => {
     const updatePayload = {
       email: values.email,
-      password: values.password,
+      newPassword: values.password,
     };
+
+    if (user.user?.id) {
+      updateUserAccount.mutate({
+        userId: user.user?.id,
+        payload: { ...updatePayload },
+      });
+    }
   };
+
   return (
     <Box className="container mx-auto">
       <Group justify="space-between">
